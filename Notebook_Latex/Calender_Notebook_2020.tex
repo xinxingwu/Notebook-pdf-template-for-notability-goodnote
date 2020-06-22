@@ -1,0 +1,846 @@
+\documentclass[b5paper,  fontsize=12pt, parskip=half, DIV=12,BCOR=2cm]{scrartcl} 
+%pagesize,
+\usepackage[T1]{fontenc}
+\usepackage[romanian]{babel}
+%\usepackage{libertine} % fonts not installed here
+\usepackage{translator, tikz, array} % pgfcalendar loaded later with \usetikzlibrary{calendar}
+\usepackage{ucs}
+\usepackage[utf8x]{inputenc}
+%\usepackage{xcolor} % loaded by tikz
+\usepackage{tabu}
+\usepackage{epstopdf}
+%\usepackage{color} % unnecessary, because xcolor already loaded
+%\usepackage{pgf} % loaded by tikz
+\usepackage{overpic}
+\usepackage{dutchcal}
+\usepackage{color}
+%\definecolor{green}{rgb}{0.78, 0.93, 0.8}
+%\definecolor{yellow}{rgb}{0.99,0.99,0.70}
+%\pagecolor{green}
+
+%=========================================================
+%== Page characteristics (Page Setup) ====================
+% using geometry would be better
+\setlength{\textwidth}{126mm}
+\setlength{\textheight}{230.0mm}
+\setlength{\topmargin}{-30mm}
+\setlength{\hoffset}{-20mm}
+\setlength{\marginparwidth}{-20mm}
+\setlength{\footskip}{12mm}
+\setlength{\headheight}{10.5mm}
+\setlength{\headsep}{4mm}
+\setlength{\parindent}{0cm}
+
+\usetikzlibrary{calendar,shapes.geometric}
+\usetikzlibrary{calc}
+%== Define colors =================================
+\definecolor{rozmam}{RGB}{255,0,0}
+\newcommand{\troz}{\textcolor{rozmam}}
+
+
+\makeatletter%
+% these days, \tikzset is used
+\tikzset{%
+    day headings/.style={day heading=#1}, % \tikzoption{day headings}{\tikzstyle{day heading}=[#1]}
+    day heading/.style={}, % \tikzstyle{day heading}=[]
+    day letter headings/.style={% \tikzstyle{day letter headings} ...
+        execute before day scope={ \ifdate{day of month=1}{%
+          \pgfmathsetlength{\pgf@ya}{\tikz@lib@cal@yshift}%
+          \pgfmathsetlength\pgf@xa{\tikz@lib@cal@xshift}%
+          \pgftransformyshift{-\pgf@ya}
+          \foreach \d/\l in {0/M,1/T,2/W,3/T,4/F,5/S,6/S} {
+            \pgf@xa=\d\pgf@xa%
+            \pgftransformxshift{\pgf@xa}%
+            \pgftransformyshift{\pgf@ya}%
+            \node[every day,day heading]{\l};%
+          }
+        }{}%
+      }
+    }
+}
+\makeatother
+
+\newcommand{\PaginaMea}{
+\minisec{\textcolor{gray}{Notes}}
+\begin{tabu}{@{}p{0.12\textwidth}p{0.32\textwidth}p{0.32\textwidth}p{0.20\textwidth}c}\tabucline -\taburulecolor{gray}\hline
+$\diamond$ \textbf{ } &  &   &  & \\[0.3cm]\tabucline [on 2pt gray]{-5}
+$\diamond$ & & & & \\[0.3cm]\tabucline [on 2pt gray]{-5}
+$\diamond$ & & & & \\[0.3cm]\tabucline [on 2pt gray]{-5}
+$\diamond$ & & & & \\[0.3cm]\tabucline [on 2pt gray]{-5}
+$\diamond$ & & & & \\[0.3cm]\tabucline [on 2pt gray]{-5}
+$\diamond$ & & & & \\[0.3cm]\tabucline [on 2pt gray]{-5}
+$\diamond$ & & & & \\[0.3cm]\tabucline [on 2pt gray]{-5}
+$\diamond$ & & & & \\[0.3cm]\tabucline [on 2pt gray]{-5}
+$\diamond$ & & & & \\[0.3cm]\tabucline [on 2pt gray]{-5}
+$\diamond$ & & & & \\[0.3cm]\tabucline [on 2pt gray]{-5}
+$\diamond$ & & & & \\[0.3cm]\tabucline [on 2pt gray]{-5}
+$\diamond$ & & & & \\[0.3cm]\tabucline [on 2pt gray]{-5}
+$\diamond$ & & & & \\[0.3cm]\tabucline [on 2pt gray]{-5}
+$\diamond$ & & & & \\[0.3cm]\tabucline [on 2pt gray]{-5}
+$\diamond$ & & & & \\[0.3cm]\tabucline [on 2pt gray]{-5}
+$\diamond$ & & & & \\[0.3cm]\tabucline [on 2pt gray]{-5}
+$\diamond$ & & & & \\[0.3cm]\tabucline [on 2pt gray]{-5}
+$\diamond$ & & & & \\[0.3cm]\tabucline [on 2pt gray]{-5}
+$\diamond$ & & & & \\[0.3cm]\tabucline [on 2pt gray]{-5}
+$\diamond$ & & & & \\[0.3cm]\tabucline [on 2pt gray]{-5}
+%$\diamond$ & & & & \\[0.3cm]\hline
+%$\diamond$ & & & & \\[0.3cm]\hline
+%$\diamond$ & & & & \\[0.3cm]\hline
+%$\diamond$ & & & & \\[0.3cm]\hline
+%$\diamond$ & & & & \\[0.3cm]\hline
+%$\diamond$ & & & & \\[0.3cm]\hline
+%$\diamond$ & & & & \\[0.3cm]\hline
+%$\diamond$ & & & & \\[0.3cm]\hline
+%$\diamond$ & & & & \\[0.3cm]\hline
+\end{tabu}
+}
+
+
+\pagenumbering{gobble}
+
+\begin{document}
+
+\begin{tikzpicture}
+     \put(65,-200){
+     \begin{minipage}[t][6.22in][t]{6.1in}
+     \begin{flushleft}
+     $\large\mathbcal{Simplicity\,\, is\,\, the\,\, ultimate\,\, sophistication.}$
+	
+     $$\mathbcal{Leonardo\,\, da\,\, Vinci}$$
+
+      \end{flushleft}
+    \end{minipage}
+    }
+\end{tikzpicture}
+
+\pagebreak
+
+\foreach \n in {1,...,1}{
+
+\pgfcalendar{cal}{2020-\n-01}{2020-\n-last}
+{
+% added to ensure every day starts on a new page
+\newpage
+\thispagestyle{empty}
+% remember day and month
+\edef\pagedayofmonth{\pgfcalendarcurrentday}%
+\edef\pagemonth{\pgfcalendarcurrentmonth}%
+\noindent{\Huge \bfseries
+\pgfcalendarcurrentday{}\\[20pt]
+\Huge \pgfcalendarweekdayname{\pgfcalendarcurrentweekday}
+}
+
+\begin{tikzpicture}[remember picture, overlay, transform shape]
+  \node [anchor=north east, inner sep=8pt, xshift = 30pt]
+    at (current page.north east)
+    {
+      \begin{tikzpicture}[every node/.append style = {anchor=center}]
+        \calendar (mycal) [dates=2020-\n-01 to 2020-\n-last,
+        week list,
+        day text=\%d0,
+        month label above centered,
+        month text={\%mt} \%y-,
+        day xshift = 0.8cm,
+        day headings=gray,
+        day letter headings
+    ]
+    if (Saturday) [rozmam]
+    if (Sunday)   [rozmam]
+    % just set another text color; nodes={draw} could be added, but the rectangle is too large
+    if (day of month=\pagedayofmonth) [cyan]
+    ;
+    % draw a frame around the day
+    \draw[green,thick,rounded corners]
+        ($(mycal-2020-\pagemonth-\pagedayofmonth.south east) + (-1.5mm,1.5mm)$) rectangle 
+        ($(mycal-2020-\pagemonth-\pagedayofmonth.north west) + (1.5mm,-1.5mm)$);
+      \end{tikzpicture}
+    };
+\end{tikzpicture}
+\\[30pt]
+\PaginaMea
+\pagebreak
+{}
+ }
+}
+     %Thesis date and jury info.
+     \put(10,-200){
+     \begin{minipage}[t][3.22in][t]{3.1in}
+     \begin{flushleft}
+     $\large\mathbcal{Tact\,\, is\,\, the\,\, knack\,\, of\,\, making\,\, a\,\, point\,\, without\,\, making\,\, an\,\, enemy.}$
+     
+     $$\mathbcal{\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad Sir\,\, Isaac\,\, Newton}$$
+
+      \end{flushleft}
+    \end{minipage}
+    }
+        
+%-------------------------------------------------------------------------------------------------------------------------------------------------------------
+\foreach \n in {2,...,2}{
+
+\pgfcalendar{cal}{2020-\n-01}{2020-\n-last}
+{
+% added to ensure every day starts on a new page
+\newpage
+\thispagestyle{empty}
+% remember day and month
+\edef\pagedayofmonth{\pgfcalendarcurrentday}%
+\edef\pagemonth{\pgfcalendarcurrentmonth}%
+\noindent{\Huge \bfseries
+\pgfcalendarcurrentday{}\\[20pt]
+\Huge \pgfcalendarweekdayname{\pgfcalendarcurrentweekday}
+}
+
+\begin{tikzpicture}[remember picture, overlay, transform shape]
+  \node [anchor=north east, inner sep=8pt, xshift = 30pt]
+    at (current page.north east)
+    {
+      \begin{tikzpicture}[every node/.append style = {anchor=center}]
+        \calendar (mycal) [dates=2020-\n-01 to 2020-\n-last,
+        week list,
+        day text=\%d0,
+        month label above centered,
+        month text={\%mt} \%y-,
+        day xshift = 0.8cm,
+        day headings=gray,
+        day letter headings
+    ]
+    if (Saturday) [rozmam]
+    if (Sunday)   [rozmam]
+    % just set another text color; nodes={draw} could be added, but the rectangle is too large
+    if (day of month=\pagedayofmonth) [cyan]
+    ;
+    % draw a frame around the day
+    \draw[green,thick,rounded corners]
+        ($(mycal-2020-\pagemonth-\pagedayofmonth.south east) + (-1.5mm,1.5mm)$) rectangle 
+        ($(mycal-2020-\pagemonth-\pagedayofmonth.north west) + (1.5mm,-1.5mm)$);
+      \end{tikzpicture}
+    };
+\end{tikzpicture}
+\\[30pt]
+\PaginaMea
+\pagebreak
+{}
+ }
+}
+%Thesis date and jury info.
+     \put(10,-200){
+     \begin{minipage}[t][3.22in][t]{3.1in}
+     \begin{flushleft}
+     $\large\mathbcal{The\,\, opposite\,\, of\,\, a\,\, correct\,\, statement\,\, is\,\, a\,\, false\,\, statement.\,\, But\,\, the}$
+     $\large\mathbcal{opposite\,\, of\,\, a\,\, profound\,\, truth\,\, may\,\, well\,\, be\,\, another\,\, profound\,\, truth}$
+
+     $$\mathbcal{\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad Niels\,\, Bohr}$$
+
+      \end{flushleft}
+    \end{minipage}
+    }
+
+%-------------------------------------------------------------------------------------------------------------------------------------------------------------
+\foreach \n in {3,...,3}{
+
+\pgfcalendar{cal}{2020-\n-01}{2020-\n-last}
+{
+% added to ensure every day starts on a new page
+\newpage
+\thispagestyle{empty}
+% remember day and month
+\edef\pagedayofmonth{\pgfcalendarcurrentday}%
+\edef\pagemonth{\pgfcalendarcurrentmonth}%
+\noindent{\Huge \bfseries
+\pgfcalendarcurrentday{}\\[20pt]
+\Huge \pgfcalendarweekdayname{\pgfcalendarcurrentweekday}
+}
+
+\begin{tikzpicture}[remember picture, overlay, transform shape]
+  \node [anchor=north east, inner sep=8pt, xshift = 30pt]
+    at (current page.north east)
+    {
+      \begin{tikzpicture}[every node/.append style = {anchor=center}]
+        \calendar (mycal) [dates=2020-\n-01 to 2020-\n-last,
+        week list,
+        day text=\%d0,
+        month label above centered,
+        month text={\%mt} \%y-,
+        day xshift = 0.8cm,
+        day headings=gray,
+        day letter headings
+    ]
+    if (Saturday) [rozmam]
+    if (Sunday)   [rozmam]
+    % just set another text color; nodes={draw} could be added, but the rectangle is too large
+    if (day of month=\pagedayofmonth) [cyan]
+    ;
+    % draw a frame around the day
+    \draw[green,thick,rounded corners]
+        ($(mycal-2020-\pagemonth-\pagedayofmonth.south east) + (-1.5mm,1.5mm)$) rectangle 
+        ($(mycal-2020-\pagemonth-\pagedayofmonth.north west) + (1.5mm,-1.5mm)$);
+      \end{tikzpicture}
+    };
+\end{tikzpicture}
+\\[30pt]
+\PaginaMea
+\pagebreak
+{}
+ }
+}
+%Thesis date and jury info.
+     \put(60,-200){
+     \begin{minipage}[t][3.22in][t]{3.1in}
+     \begin{flushleft}
+     $$\large\mathbcal{Physics\,\, isn't\,\, the\,\,  most\,\,  important\,\,  thing.\,\,  Love\,\,  is.}$$
+     
+     $$\mathbcal{\qquad\qquad\qquad\qquad\qquad\qquad\qquad Richard\,\, Feynman}$$
+
+      \end{flushleft}
+    \end{minipage}
+    }
+
+%-------------------------------------------------------------------------------------------------------------------------------------------------------------
+\foreach \n in {4,...,4}{
+
+\pgfcalendar{cal}{2020-\n-01}{2020-\n-last}
+{
+% added to ensure every day starts on a new page
+\newpage
+\thispagestyle{empty}
+% remember day and month
+\edef\pagedayofmonth{\pgfcalendarcurrentday}%
+\edef\pagemonth{\pgfcalendarcurrentmonth}%
+\noindent{\Huge \bfseries
+\pgfcalendarcurrentday{}\\[20pt]
+\Huge \pgfcalendarweekdayname{\pgfcalendarcurrentweekday}
+}
+
+\begin{tikzpicture}[remember picture, overlay, transform shape]
+  \node [anchor=north east, inner sep=8pt, xshift = 30pt]
+    at (current page.north east)
+    {
+      \begin{tikzpicture}[every node/.append style = {anchor=center}]
+        \calendar (mycal) [dates=2020-\n-01 to 2020-\n-last,
+        week list,
+        day text=\%d0,
+        month label above centered,
+        month text={\%mt} \%y-,
+        day xshift = 0.8cm,
+        day headings=gray,
+        day letter headings
+    ]
+    if (Saturday) [rozmam]
+    if (Sunday)   [rozmam]
+    % just set another text color; nodes={draw} could be added, but the rectangle is too large
+    if (day of month=\pagedayofmonth) [cyan]
+    ;
+    % draw a frame around the day
+    \draw[green,thick,rounded corners]
+        ($(mycal-2020-\pagemonth-\pagedayofmonth.south east) + (-1.5mm,1.5mm)$) rectangle 
+        ($(mycal-2020-\pagemonth-\pagedayofmonth.north west) + (1.5mm,-1.5mm)$);
+      \end{tikzpicture}
+    };
+\end{tikzpicture}
+\\[30pt]
+\PaginaMea
+\pagebreak
+{}
+ }
+}
+%Thesis date and jury info.
+     \put(10,-200){
+     \begin{minipage}[t][3.22in][t]{3.1in}
+     \begin{flushleft}
+     $\large\mathbcal{There\,\, are\,\, only\,\, two\,\, ways\,\, to\,\, live\,\, your\,\, life.\,\, One\,\, is\,\, as\,\, though\,\, }$
+     $\large\mathbcal{nothing\,\, is\,\, a\,\, miracle.\,\, The\,\, other\,\, is\,\, as\,\, though\,\, everything\,\, is\,\, a}$
+     $\large\mathbcal{miracle.}$
+     
+     $$\mathbcal{\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad Albert\,\, Einstein}$$
+
+      \end{flushleft}
+    \end{minipage}
+    }
+
+%-------------------------------------------------------------------------------------------------------------------------------------------------------------
+\foreach \n in {5,...,5}{
+
+\pgfcalendar{cal}{2020-\n-01}{2020-\n-last}
+{
+% added to ensure every day starts on a new page
+\newpage
+\thispagestyle{empty}
+% remember day and month
+\edef\pagedayofmonth{\pgfcalendarcurrentday}%
+\edef\pagemonth{\pgfcalendarcurrentmonth}%
+\noindent{\Huge \bfseries
+\pgfcalendarcurrentday{}\\[20pt]
+\Huge \pgfcalendarweekdayname{\pgfcalendarcurrentweekday}
+}
+
+\begin{tikzpicture}[remember picture, overlay, transform shape]
+  \node [anchor=north east, inner sep=8pt, xshift = 30pt]
+    at (current page.north east)
+    {
+      \begin{tikzpicture}[every node/.append style = {anchor=center}]
+        \calendar (mycal) [dates=2020-\n-01 to 2020-\n-last,
+        week list,
+        day text=\%d0,
+        month label above centered,
+        month text={\%mt} \%y-,
+        day xshift = 0.8cm,
+        day headings=gray,
+        day letter headings
+    ]
+    if (Saturday) [rozmam]
+    if (Sunday)   [rozmam]
+    % just set another text color; nodes={draw} could be added, but the rectangle is too large
+    if (day of month=\pagedayofmonth) [cyan]
+    ;
+    % draw a frame around the day
+    \draw[green,thick,rounded corners]
+        ($(mycal-2020-\pagemonth-\pagedayofmonth.south east) + (-1.5mm,1.5mm)$) rectangle 
+        ($(mycal-2020-\pagemonth-\pagedayofmonth.north west) + (1.5mm,-1.5mm)$);
+      \end{tikzpicture}
+    };
+\end{tikzpicture}
+\\[30pt]
+\PaginaMea
+\pagebreak
+{}
+ }
+}
+%Thesis date and jury info.
+     \put(10,-200){
+     \begin{minipage}[t][3.22in][t]{3.1in}
+     \begin{flushleft}
+     $\large\mathbcal{The\,\, greatest\,\, enemy\,\, of\,\, knowledge\,\, is\,\, not\,\, ignorance,\,\, it\,\, is\,\, the}$
+     $\large\mathbcal{illusion\,\, of\,\, knowledge.}$
+     
+     $$\mathbcal{\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad Stephen\,\, Hawking}$$
+
+      \end{flushleft}
+    \end{minipage}
+    }
+
+%-------------------------------------------------------------------------------------------------------------------------------------------------------------
+\foreach \n in {6,...,6}{
+
+\pgfcalendar{cal}{2020-\n-01}{2020-\n-last}
+{
+% added to ensure every day starts on a new page
+\newpage
+\thispagestyle{empty}
+% remember day and month
+\edef\pagedayofmonth{\pgfcalendarcurrentday}%
+\edef\pagemonth{\pgfcalendarcurrentmonth}%
+\noindent{\Huge \bfseries
+\pgfcalendarcurrentday{}\\[20pt]
+\Huge \pgfcalendarweekdayname{\pgfcalendarcurrentweekday}
+}
+
+\begin{tikzpicture}[remember picture, overlay, transform shape]
+  \node [anchor=north east, inner sep=8pt, xshift = 30pt]
+    at (current page.north east)
+    {
+      \begin{tikzpicture}[every node/.append style = {anchor=center}]
+        \calendar (mycal) [dates=2020-\n-01 to 2020-\n-last,
+        week list,
+        day text=\%d0,
+        month label above centered,
+        month text={\%mt} \%y-,
+        day xshift = 0.8cm,
+        day headings=gray,
+        day letter headings
+    ]
+    if (Saturday) [rozmam]
+    if (Sunday)   [rozmam]
+    % just set another text color; nodes={draw} could be added, but the rectangle is too large
+    if (day of month=\pagedayofmonth) [cyan]
+    ;
+    % draw a frame around the day
+    \draw[green,thick,rounded corners]
+        ($(mycal-2020-\pagemonth-\pagedayofmonth.south east) + (-1.5mm,1.5mm)$) rectangle 
+        ($(mycal-2020-\pagemonth-\pagedayofmonth.north west) + (1.5mm,-1.5mm)$);
+      \end{tikzpicture}
+    };
+\end{tikzpicture}
+\\[30pt]
+\PaginaMea
+\pagebreak
+{}
+ }
+}
+%Thesis date and jury info.
+     \put(10,-200){
+     \begin{minipage}[t][3.22in][t]{3.1in}
+     \begin{flushleft}
+     $\large\mathbcal{A\,\, man\,\, who\,\, dares\,\, to\,\, waste\,\, one\,\, hour\,\, of\,\, time\,\, has\,\, not\,\, discovered}$
+     $\large\mathbcal{the\,\, value\,\, of\,\, life.}$
+     
+     $$\mathbcal{\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad Charles\,\, Darwin}$$
+
+      \end{flushleft}
+    \end{minipage}
+    }
+
+%-------------------------------------------------------------------------------------------------------------------------------------------------------------
+\foreach \n in {7,...,7}{
+
+\pgfcalendar{cal}{2020-\n-01}{2020-\n-last}
+{
+% added to ensure every day starts on a new page
+\newpage
+\thispagestyle{empty}
+% remember day and month
+\edef\pagedayofmonth{\pgfcalendarcurrentday}%
+\edef\pagemonth{\pgfcalendarcurrentmonth}%
+\noindent{\Huge \bfseries
+\pgfcalendarcurrentday{}\\[20pt]
+\Huge \pgfcalendarweekdayname{\pgfcalendarcurrentweekday}
+}
+
+\begin{tikzpicture}[remember picture, overlay, transform shape]
+  \node [anchor=north east, inner sep=8pt, xshift = 30pt]
+    at (current page.north east)
+    {
+      \begin{tikzpicture}[every node/.append style = {anchor=center}]
+        \calendar (mycal) [dates=2020-\n-01 to 2020-\n-last,
+        week list,
+        day text=\%d0,
+        month label above centered,
+        month text={\%mt} \%y-,
+        day xshift = 0.8cm,
+        day headings=gray,
+        day letter headings
+    ]
+    if (Saturday) [rozmam]
+    if (Sunday)   [rozmam]
+    % just set another text color; nodes={draw} could be added, but the rectangle is too large
+    if (day of month=\pagedayofmonth) [cyan]
+    ;
+    % draw a frame around the day
+    \draw[green,thick,rounded corners]
+        ($(mycal-2020-\pagemonth-\pagedayofmonth.south east) + (-1.5mm,1.5mm)$) rectangle 
+        ($(mycal-2020-\pagemonth-\pagedayofmonth.north west) + (1.5mm,-1.5mm)$);
+      \end{tikzpicture}
+    };
+\end{tikzpicture}
+\\[30pt]
+\PaginaMea
+\pagebreak
+{}
+ }
+}
+%Thesis date and jury info.
+     \put(10,-200){
+     \begin{minipage}[t][3.22in][t]{3.1in}
+     \begin{flushleft}
+     $\large\mathbcal{The\,\, sun,\,\, with\,\, all\,\, the\,\, planets\,\, revolving\,\, around\,\, it,\,\, and\,\, depending}$
+     $\large\mathbcal{on\,\, it,\,\, can\,\, still\,\, ripen\,\, a\,\, bunch\,\, of\,\, grapes\,\, as\,\, though\,\, it\,\, had\,\, nothing}$
+     $\large\mathbcal{else\,\, in\,\, the\,\, universe\,\, to\,\, do.}$
+     
+     $$\mathbcal{\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad Galileo\,\, Galilei}$$
+
+      \end{flushleft}
+    \end{minipage}
+    }
+
+%-------------------------------------------------------------------------------------------------------------------------------------------------------------
+\foreach \n in {8,...,8}{
+
+\pgfcalendar{cal}{2020-\n-01}{2020-\n-last}
+{
+% added to ensure every day starts on a new page
+\newpage
+\thispagestyle{empty}
+% remember day and month
+\edef\pagedayofmonth{\pgfcalendarcurrentday}%
+\edef\pagemonth{\pgfcalendarcurrentmonth}%
+\noindent{\Huge \bfseries
+\pgfcalendarcurrentday{}\\[20pt]
+\Huge \pgfcalendarweekdayname{\pgfcalendarcurrentweekday}
+}
+
+\begin{tikzpicture}[remember picture, overlay, transform shape]
+  \node [anchor=north east, inner sep=8pt, xshift = 30pt]
+    at (current page.north east)
+    {
+      \begin{tikzpicture}[every node/.append style = {anchor=center}]
+        \calendar (mycal) [dates=2020-\n-01 to 2020-\n-last,
+        week list,
+        day text=\%d0,
+        month label above centered,
+        month text={\%mt} \%y-,
+        day xshift = 0.8cm,
+        day headings=gray,
+        day letter headings
+    ]
+    if (Saturday) [rozmam]
+    if (Sunday)   [rozmam]
+    % just set another text color; nodes={draw} could be added, but the rectangle is too large
+    if (day of month=\pagedayofmonth) [cyan]
+    ;
+    % draw a frame around the day
+    \draw[green,thick,rounded corners]
+        ($(mycal-2020-\pagemonth-\pagedayofmonth.south east) + (-1.5mm,1.5mm)$) rectangle 
+        ($(mycal-2020-\pagemonth-\pagedayofmonth.north west) + (1.5mm,-1.5mm)$);
+      \end{tikzpicture}
+    };
+\end{tikzpicture}
+\\[30pt]
+\PaginaMea
+\pagebreak
+{}
+ }
+}
+%Thesis date and jury info.
+     \put(10,-200){
+     \begin{minipage}[t][3.22in][t]{3.1in}
+     \begin{flushleft}
+     $\large\mathbcal{Until\,\, man\,\, duplicates\,\, a\,\, blade\,\, of\,\, grass,\,\, nature\,\, can\,\, laugh\,\, at\,\, his}$
+     $\large\mathbcal{so-called\,\, scientific\,\, knowledge.}$
+     
+     $$\mathbcal{\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad Thomas\,\, Edison}$$
+
+      \end{flushleft}
+    \end{minipage}
+    }
+    
+%-------------------------------------------------------------------------------------------------------------------------------------------------------------
+\foreach \n in {9,...,9}{
+
+\pgfcalendar{cal}{2020-\n-01}{2020-\n-last}
+{
+% added to ensure every day starts on a new page
+\newpage
+\thispagestyle{empty}
+% remember day and month
+\edef\pagedayofmonth{\pgfcalendarcurrentday}%
+\edef\pagemonth{\pgfcalendarcurrentmonth}%
+\noindent{\Huge \bfseries
+\pgfcalendarcurrentday{}\\[20pt]
+\Huge \pgfcalendarweekdayname{\pgfcalendarcurrentweekday}
+}
+
+\begin{tikzpicture}[remember picture, overlay, transform shape]
+  \node [anchor=north east, inner sep=8pt, xshift = 30pt]
+    at (current page.north east)
+    {
+      \begin{tikzpicture}[every node/.append style = {anchor=center}]
+        \calendar (mycal) [dates=2020-\n-01 to 2020-\n-last,
+        week list,
+        day text=\%d0,
+        month label above centered,
+        month text={\%mt} \%y-,
+        day xshift = 0.8cm,
+        day headings=gray,
+        day letter headings
+    ]
+    if (Saturday) [rozmam]
+    if (Sunday)   [rozmam]
+    % just set another text color; nodes={draw} could be added, but the rectangle is too large
+    if (day of month=\pagedayofmonth) [cyan]
+    ;
+    % draw a frame around the day
+    \draw[green,thick,rounded corners]
+        ($(mycal-2020-\pagemonth-\pagedayofmonth.south east) + (-1.5mm,1.5mm)$) rectangle 
+        ($(mycal-2020-\pagemonth-\pagedayofmonth.north west) + (1.5mm,-1.5mm)$);
+      \end{tikzpicture}
+    };
+\end{tikzpicture}
+\\[30pt]
+\PaginaMea
+\pagebreak
+{}
+ }
+}
+%Thesis date and jury info.
+     \put(10,-200){
+     \begin{minipage}[t][3.22in][t]{3.1in}
+     \begin{flushleft}
+     $\large\mathbcal{One\,\, must\,\, be\,\, sane\,\, to\,\, think\,\, clearly,\,\, but\,\, one\,\, can\,\, think\,\, deeply\,\, and}$
+     $\large\mathbcal{be\,\, quite\,\, insane.}$
+     
+     $$\mathbcal{\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\quad Nikola\,\, Tesla}$$
+
+      \end{flushleft}
+    \end{minipage}
+    }
+    
+%-------------------------------------------------------------------------------------------------------------------------------------------------------------
+\foreach \n in {10,...,10}{
+
+\pgfcalendar{cal}{2020-\n-01}{2020-\n-last}
+{
+% added to ensure every day starts on a new page
+\newpage
+\thispagestyle{empty}
+% remember day and month
+\edef\pagedayofmonth{\pgfcalendarcurrentday}%
+\edef\pagemonth{\pgfcalendarcurrentmonth}%
+\noindent{\Huge \bfseries
+\pgfcalendarcurrentday{}\\[20pt]
+\Huge \pgfcalendarweekdayname{\pgfcalendarcurrentweekday}
+}
+
+\begin{tikzpicture}[remember picture, overlay, transform shape]
+  \node [anchor=north east, inner sep=8pt, xshift = 30pt]
+    at (current page.north east)
+    {
+      \begin{tikzpicture}[every node/.append style = {anchor=center}]
+        \calendar (mycal) [dates=2020-\n-01 to 2020-\n-last,
+        week list,
+        day text=\%d0,
+        month label above centered,
+        month text={\%mt} \%y-,
+        day xshift = 0.8cm,
+        day headings=gray,
+        day letter headings
+    ]
+    if (Saturday) [rozmam]
+    if (Sunday)   [rozmam]
+    % just set another text color; nodes={draw} could be added, but the rectangle is too large
+    if (day of month=\pagedayofmonth) [cyan]
+    ;
+    % draw a frame around the day
+    \draw[green,thick,rounded corners]
+        ($(mycal-2020-\pagemonth-\pagedayofmonth.south east) + (-1.5mm,1.5mm)$) rectangle 
+        ($(mycal-2020-\pagemonth-\pagedayofmonth.north west) + (1.5mm,-1.5mm)$);
+      \end{tikzpicture}
+    };
+\end{tikzpicture}
+\\[30pt]
+\PaginaMea
+\pagebreak
+{}
+ }
+}
+%Thesis date and jury info.
+     \put(10,-200){
+     \begin{minipage}[t][3.22in][t]{3.1in}
+     \begin{flushleft}
+     $\large\mathbcal{In\,\, theory,\,\, there\,\, is\,\, no\,\, difference\,\, between\,\, theory\,\, and\,\, practice.\,\, But,}$
+     $\large\mathbcal{in\,\, practice,\,\, there\,\, is.}$
+     
+     $$\mathbcal{\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad Jan\,\, L.\,\, A.\,\, van\,\, de\,\, Snepscheut}$$
+
+      \end{flushleft}
+    \end{minipage}
+    }
+
+%-------------------------------------------------------------------------------------------------------------------------------------------------------------
+\foreach \n in {11,...,11}{
+
+\pgfcalendar{cal}{2020-\n-01}{2020-\n-last}
+{
+% added to ensure every day starts on a new page
+\newpage
+\thispagestyle{empty}
+% remember day and month
+\edef\pagedayofmonth{\pgfcalendarcurrentday}%
+\edef\pagemonth{\pgfcalendarcurrentmonth}%
+\noindent{\Huge \bfseries
+\pgfcalendarcurrentday{}\\[20pt]
+\Huge \pgfcalendarweekdayname{\pgfcalendarcurrentweekday}
+}
+
+\begin{tikzpicture}[remember picture, overlay, transform shape]
+  \node [anchor=north east, inner sep=8pt, xshift = 30pt]
+    at (current page.north east)
+    {
+      \begin{tikzpicture}[every node/.append style = {anchor=center}]
+        \calendar (mycal) [dates=2020-\n-01 to 2020-\n-last,
+        week list,
+        day text=\%d0,
+        month label above centered,
+        month text={\%mt} \%y-,
+        day xshift = 0.8cm,
+        day headings=gray,
+        day letter headings
+    ]
+    if (Saturday) [rozmam]
+    if (Sunday)   [rozmam]
+    % just set another text color; nodes={draw} could be added, but the rectangle is too large
+    if (day of month=\pagedayofmonth) [cyan]
+    ;
+    % draw a frame around the day
+    \draw[green,thick,rounded corners]
+        ($(mycal-2020-\pagemonth-\pagedayofmonth.south east) + (-1.5mm,1.5mm)$) rectangle 
+        ($(mycal-2020-\pagemonth-\pagedayofmonth.north west) + (1.5mm,-1.5mm)$);
+      \end{tikzpicture}
+    };
+\end{tikzpicture}
+\\[30pt]
+\PaginaMea
+\pagebreak
+{}
+ }
+}
+%Thesis date and jury info.
+     \put(10,-200){
+     \begin{minipage}[t][3.22in][t]{3.1in}
+     \begin{flushleft}
+     $\large\mathbcal{The\,\, scientist\,\, is\,\, not\,\, a\,\, person\,\, who\,\, gives\,\, the\,\, right\,\, answers,\,\, he's}$
+     $\large\mathbcal{one\,\, who\,\, asks\,\, the\,\, right\,\, questions.}$
+     
+     $$\mathbcal{\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\quad Claude\,\, Levi-Strauss}$$
+
+      \end{flushleft}
+    \end{minipage}
+    }
+
+%-------------------------------------------------------------------------------------------------------------------------------------------------------------
+\foreach \n in {12,...,12}{
+
+\pgfcalendar{cal}{2020-\n-01}{2020-\n-last}
+{
+% added to ensure every day starts on a new page
+\newpage
+\thispagestyle{empty}
+% remember day and month
+\edef\pagedayofmonth{\pgfcalendarcurrentday}%
+\edef\pagemonth{\pgfcalendarcurrentmonth}%
+\noindent{\Huge \bfseries
+\pgfcalendarcurrentday{}\\[20pt]
+\Huge \pgfcalendarweekdayname{\pgfcalendarcurrentweekday}
+}
+
+\begin{tikzpicture}[remember picture, overlay, transform shape]
+  \node [anchor=north east, inner sep=8pt, xshift = 30pt]
+    at (current page.north east)
+    {
+      \begin{tikzpicture}[every node/.append style = {anchor=center}]
+        \calendar (mycal) [dates=2020-\n-01 to 2020-\n-last,
+        week list,
+        day text=\%d0,
+        month label above centered,
+        month text={\%mt} \%y-,
+        day xshift = 0.8cm,
+        day headings=gray,
+        day letter headings
+    ]
+    if (Saturday) [rozmam]
+    if (Sunday)   [rozmam]
+    % just set another text color; nodes={draw} could be added, but the rectangle is too large
+    if (day of month=\pagedayofmonth) [cyan]
+    ;
+    % draw a frame around the day
+    \draw[green,thick,rounded corners]
+        ($(mycal-2020-\pagemonth-\pagedayofmonth.south east) + (-1.5mm,1.5mm)$) rectangle 
+        ($(mycal-2020-\pagemonth-\pagedayofmonth.north west) + (1.5mm,-1.5mm)$);
+      \end{tikzpicture}
+    };
+\end{tikzpicture}
+\\[30pt]
+\PaginaMea
+\pagebreak
+{}
+ }
+}
+
+\begin{figure}
+\quad\\
+\quad\\
+\quad\\
+\quad\\
+
+  \qquad\qquad\quad\includegraphics[width=12cm]{2.jpg}
+\end{figure}
+
+\end{document}
